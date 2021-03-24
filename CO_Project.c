@@ -26,22 +26,20 @@ int main()
 
 {
 
-    
-    
 main:
 
-    system("cls"); 
+    system("cls");
 
-    system("color 03 ");
+    system(" color 06 ");
 
-    printf("%d",sizeof(list)),
+    printf("%d", sizeof(list));
 
     printf("\n\t\t\t\t\t\t *********** Welcome to Contact Management System **********");
 
     printf("\n\n\t\t\t\t\t\t\t\t\t  MAIN MENU\n\t\t\t\t\t\t\t\t______________________________\n\n");
 
     printf("\n=================================================================================================================================================================");
-    
+
     printf("\n\n\t\t\t\t\t\t\t\t  (1) Add a new Contact");
 
     printf("\n\t\t\t\t\t\t\t\t  (2) List all Contacts");
@@ -49,13 +47,13 @@ main:
     printf("\n\t\t\t\t\t\t\t\t  (3) Search for contact");
 
     printf("\n\t\t\t\t\t\t\t\t  (4) Edit a Contact");
-    
+
     printf("\n\t\t\t\t\t\t\t\t  (5) Delete a Contact");
 
     printf("\n\t\t\t\t\t\t\t\t  (6) Delete all Contacts");
-    
-    printf("\n\t\t\t\t\t\t\t\t  (0) Exit");
-    
+
+    printf("\n\t\t\t\t\t\t\t\t  (7) Exit");
+
     printf("\n\n=================================================================================================================================================================\n\n");
 
     printf("\t\t\t\t\t\t\t\t   Enter the choice: ");
@@ -66,15 +64,7 @@ main:
 
     {
 
-    //To exit 
-    
-    case 0:
-
-        printf("\n\t\t\t\t\t\t\t      Are you sure you want to exit?");
-
-        break;
-
-    // To add contact 
+        // To add contact
 
     case 1:
 
@@ -91,7 +81,7 @@ main:
 
             printf("\n\n\n\tTo exit: Press blank space and enter in the name input\n\n\n\t\tName:          ");
 
-            scanf("%[^\n]", &list.name);
+            gets(list.name);
 
             if (stricmp(list.name, "") == 0 || stricmp(list.name, " ") == 0)
 
@@ -107,7 +97,7 @@ main:
 
             printf("\t\tAddress:       ");
 
-            scanf("%[^\n]", &list.add);
+            gets(list.add);
 
             fflush(stdin);
 
@@ -118,13 +108,14 @@ main:
             printf("\n");
 
             fwrite(&list, sizeof(list), 1, fp);
+
         }
 
         fclose(fp);
 
         break;
 
-    //To view the list of contact
+        //To view the list of contact
 
     case 2:
 
@@ -132,7 +123,7 @@ main:
 
         printf("\n\t\t================================\n\t\t\tLIST OF CONTACTS\n\t\t================================\n\n");
 
-        printf("              Here is the list of all saved contact\n");
+        printf("              Here is the list of all saved contacts\n");
 
         for (i = 97; i <= 122; i = i + 1)
 
@@ -152,11 +143,11 @@ main:
 
                 {
 
-                    printf("\n\tName\t: %s\n\tPhone\t: %ld\n\tAddress\t: %s\n\tEmail\t: %s\n", list.name,list.ph, list.add, list.email);
+                    printf("\n\tName\t: %s\n\tPhone\t: %ld\n\tAddress\t: %s\n\tEmail\t: %s\n", list.name, list.ph, list.add, list.email);
 
                     found++;
-
                 }
+
             }
 
             if (found != 0)
@@ -164,7 +155,6 @@ main:
             {
 
                 printf("     _______________________________________________________\n");
-
             }
 
             fclose(fp);
@@ -188,13 +178,11 @@ main:
 
             fflush(stdin);
 
-            scanf("%[^\n]", &query);
+            gets(query);
 
             l = strlen(query);
 
             fp = fopen("contact.dll", "r");
-
-            system("cls");
 
             printf("\n\n\t\tSearch result for '%s' \n\t_________________________________________\n", query);
 
@@ -204,7 +192,7 @@ main:
 
                 for (i = 0; i <= l; i++)
 
-                    name[i] = list.name[i];
+                name[i] = list.name[i];
 
                 name[l] = '\0';
 
@@ -215,14 +203,6 @@ main:
                     printf("\n\t\tName\t: %s\n\t\tPhone\t: %ld\n\t\tAddress\t: %s\n\t\tEmail\t: %s\n", list.name, list.ph, list.add, list.email);
 
                     found++;
-
-                    if (found % 4 == 0)
-
-                    {
-
-                        printf("       Press any key to continue...");
-
-                    }
                 }
             }
 
@@ -244,7 +224,7 @@ main:
 
         break;
 
-        // to edit a contact
+    //To edit a contact
 
     case 4:
 
@@ -258,7 +238,7 @@ main:
 
         printf("\t\tEdit contact\n\t===============================\n\n\t   Enter the name of contact to edit:");
 
-        scanf("%[^\n]", name);
+        scanf("%[^\n]", &name);
 
         while (fread(&list, sizeof(list), 1, fp) == 1)
 
@@ -267,6 +247,7 @@ main:
             if (stricmp(name, list.name) != 0)
 
                 fwrite(&list, sizeof(list), 1, ft);
+        
         }
 
         fflush(stdin);
@@ -341,6 +322,8 @@ main:
 
         break;
 
+        //To delete all contacts at once
+
     case 6:
 
         system("cls");
@@ -351,8 +334,16 @@ main:
 
         fp = fopen("contact.dll", "w");
 
-        fclose(fp);    
-    
+        fclose(fp);
+
+        break;
+
+        //To exit
+
+    case 7:
+
+        printf("\n\t\t\t\t\t\t\t      Are you sure you want to exit?");
+
         break;
 
     default:
